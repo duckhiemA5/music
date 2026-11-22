@@ -957,13 +957,3 @@ setAuthMode('login');
 
 changeView('home');
 // ANNOUNCEMENT POPUP
-const announcement = document.getElementById('announcement-overlay');
-const closeAnnouncement = document.getElementById('close-announcement');
-const confirmAnnouncement = document.getElementById('confirm-announcement');
-
-function hideAnnouncement() {
-    announcement.style.display = 'none';
-}
-
-closeAnnouncement.addEventListener('click', hideAnnouncement);
-confirmAnnouncement.addEventListener('click', hideAnnouncement);

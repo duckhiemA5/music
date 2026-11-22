@@ -154,7 +154,11 @@
   <!-- BẢNG THÔNG BÁO -->
   <div id="announcement-overlay" class="announcement-overlay">
     <div class="announcement-box">
-      <button id="close-announcement" class="announcement-close">×</button>
+      <button
+          class="announcement-close"
+          onclick="document.getElementById('announcement-overlay').style.display='none'">
+          ×
+      </button>
 
       <div class="announcement-icon">🎧</div>
 
@@ -183,8 +187,10 @@
         ✨ Chúc bạn có những phút giây nghe nhạc thật tuyệt vời!
       </p>
 
-      <button id="confirm-announcement" class="announcement-button">
-        Nhấn để đóng
+      <button
+          class="announcement-button"
+          onclick="document.getElementById('announcement-overlay').style.display='none'">
+          Nhấn để đóng
       </button>
     </div>
   </div>
