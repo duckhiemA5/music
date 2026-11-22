@@ -2,19 +2,20 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /tracks/{trackId} {
-      // Mọi người có thể xem thư viện; chỉ người đăng nhập mới được thêm.
-      allow read: if true;
+      // Người dùng chỉ đọc được các bản ghi theo quy tắc hiện tại;
+      // chỉ tài khoản sở hữu mới được thêm/sửa/xóa bản ghi của mình.
+      allow read: if request.auth != null
+        && resource.data.userId == request.auth.uid;
       allow create: if request.auth != null
-        && request.resource.data.owner == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
         && request.resource.data.title is string
         && request.resource.data.title.size() > 0
         && request.resource.data.url is string;
-      // Chỉ chủ sở hữu mới được sửa hoặc xóa bản ghi của mình.
       allow update: if request.auth != null
-        && resource.data.owner == request.auth.uid
-        && request.resource.data.owner == resource.data.owner;
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == resource.data.userId;
       allow delete: if request.auth != null
-        && resource.data.owner == request.auth.uid;
+        && resource.data.userId == request.auth.uid;
     }
   }
 }

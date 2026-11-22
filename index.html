@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#090b12" />
   <title>Music Space — Your sound universe</title>
-  <link rel="stylesheet" href="/src/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -41,6 +40,13 @@
         <div class="breadcrumb">YOUR MUSIC UNIVERSE <span>/</span> <b id="page-name">Khám phá</b></div>
         <div class="top-actions">
           <span class="online-dot"></span><span class="online-text">FIREBASE CONNECTED</span>
+          <div class="notification-wrap">
+            <button class="notification-button" id="notification-button" type="button" aria-label="Thông báo" aria-expanded="false">♢<span class="notification-dot" id="notification-dot"></span></button>
+            <section class="notification-panel" id="notification-panel" hidden>
+              <div class="notification-head"><div><b>Thông báo</b><small>Cập nhật từ Music Space</small></div><button id="notification-read" type="button">Đánh dấu đã đọc</button></div>
+              <div class="notification-list" id="notification-list"></div>
+            </section>
+          </div>
           <button class="profile-button" id="top-auth">Đăng nhập</button>
         </div>
       </header>
@@ -100,11 +106,11 @@
           </div>
           <div class="add-card">
             <div class="add-card-icon">↗</div><h3>Thêm từ đường dẫn web</h3>
-            <p>Dán link YouTube hoặc SoundCloud để thêm nhạc vào thư viện.</p>
-            <label class="field-label" for="web-url">Link bài hát / URL âm thanh</label><input class="form-input" id="web-url" placeholder="Dán link YouTube / Spotify / SoundCloud hoặc MP3">
+            <p>Chỉ thêm đường dẫn trực tiếp đến file âm thanh; YouTube, Spotify và SoundCloud đang tạm đóng.</p>
+            <label class="field-label" for="web-url">Link bài hát / URL âm thanh</label><input class="form-input" id="web-url" placeholder="https://example.com/music.mp3">
             <label class="field-label" for="web-title">Tên bài hát</label><input class="form-input" id="web-title" placeholder="Tên bài hát">
             <label class="field-label" for="web-artist">Nghệ sĩ</label><input class="form-input" id="web-artist" placeholder="Tên nghệ sĩ">
-            <div class="url-note"> ⓘ Không cần API key. Hỗ trợ link YouTube, SoundCloud và URL MP3 trực tiếp.</div>
+            <div class="url-note">ⓘ Hiện chỉ hỗ trợ URL trực tiếp tới file MP3, WAV, OGG, M4A, AAC hoặc FLAC. YouTube, Spotify và SoundCloud đang tạm đóng.</div>
             <button class="primary-button full-button" id="add-url-button">Thêm vào thư viện <span>↗</span></button>
           </div>
         </div>
@@ -137,6 +143,7 @@
     <form id="auth-form">
       <label class="field-label" for="auth-email">Email</label><input class="form-input" id="auth-email" type="email" required placeholder="you@example.com">
       <label class="field-label" for="auth-password">Mật khẩu</label><input class="form-input" id="auth-password" type="password" minlength="6" required placeholder="Ít nhất 6 ký tự">
+      <button type="button" class="forgot-password" id="forgot-password">Quên mật khẩu?</button>
       <button class="primary-button full-button" id="auth-submit" type="submit">Đăng nhập <span>→</span></button>
     </form>
     <div class="auth-divider"><span>HOẶC</span></div>
@@ -144,55 +151,7 @@
     <p class="switch-auth" id="switch-auth">Chưa có tài khoản? <button type="button">Tạo tài khoản</button></p>
     <p class="auth-error" id="auth-error"></p>
   </dialog>
-  <dialog id="platform-dialog" class="platform-dialog">
-    <div class="platform-dialog-head"><div><small>NOW PLAYING</small><b id="platform-title">Đang phát</b></div><button type="button" id="close-platform" class="dialog-close" aria-label="Đóng">×</button></div>
-    <div id="platform-frame" class="platform-frame"></div>
-    <p class="platform-note">Trình phát được cung cấp bởi nền tảng gốc. Một số bài hát có thể không cho phép nhúng.</p>
-  </dialog>
   <div class="toast" id="toast"></div>
   <script type="module" src="/src/main.js"></script>
-  <!-- BẢNG THÔNG BÁO -->
-  <div id="announcement-overlay" class="announcement-overlay">
-    <div class="announcement-box">
-      <button
-          class="announcement-close"
-          onclick="document.getElementById('announcement-overlay').style.display='none'">
-          ×
-      </button>
-
-      <div class="announcement-icon">🎧</div>
-
-      <span class="announcement-label">MUSIC SPACE</span>
-
-      <h2>Chào mừng bạn!</h2>
-
-      <p class="announcement-desc">
-        Chào mừng bạn đến với Music Space.
-        Hãy cùng khám phá không gian âm nhạc và tận hưởng
-        những giai điệu yêu thích của bạn!
-      </p>
-      <p class="announcement-desc">
-        Niện tại chỉ có thể thêm nhạc bằng file mp3, m4a,......
-      </p>
-      <p class="announcement-desc">
-        Nếu bạn muốn thêm nhạc từ youtube, soundcloud, spotify thì hãy chờ bản cập nhật tiếp theo nhé!
-      </p>
-      <p class="announcement-desc">
-       Nếu bạn quên mật khẩu đăng nhập hãy nhắn tin qua SĐT: 034629932 để được hỗ trợ nhé!  
-      </p>
-
-      <div class="announcement-divider"></div>
-
-      <p class="announcement-note">
-        ✨ Chúc bạn có những phút giây nghe nhạc thật tuyệt vời!
-      </p>
-
-      <button
-          class="announcement-button"
-          onclick="document.getElementById('announcement-overlay').style.display='none'">
-          Nhấn để đóng
-      </button>
-    </div>
-  </div>
 </body>
 </html>
